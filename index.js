@@ -14,6 +14,31 @@ fetch(baseURL)
 .then(mtnArray => renderMountainList(mtnArray));
 
 //SEE A RANDOM MOUNTAIN IN MOUNTAIN-DETAILS DIV
+window.onLoad = randomMtn();
+function randomMtn() {
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+    let randomId = getRandomInt(1,5);
+    //debugger;
+    fetch(`${baseURL}/${randomId}`)
+    .then(mtn => mtn.json())
+    .then(mtnObj => {
+        console.log(mtnObj);
+    // debugger;
+        //update pic
+        imgBox.src = mtnObj.image;
+        //update mtn name
+        nameBox.innerText = mtnObj.name;
+        //update mtn location
+        locationBox.innerText = mtnObj.location;
+        //display likes
+        mtnLikes.innerText = mtnObj.likes;
+});
+} 
+
 
 //LIST OF MOUNTAIN NAMES BELOW
 function renderMountainList(mtnArray){
